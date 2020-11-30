@@ -21,7 +21,7 @@
 
   </head>
   <body>
-
+    <header class = "site-header">
     <nav class='navbar mynav' role= 'navigation' id='navbar'>
       <div class="container">
         <a class='navbar-brand mynav' href="{% url 'home' %}">Student Social</a>
@@ -31,7 +31,7 @@
             {% for message in messages %}
               <div class="alert alert-{{ message.tags }}">
                 {{ message }}
-                
+
               </div>
 
             {% endfor %}
@@ -54,7 +54,13 @@
       </div>
 
     </nav>
-
+      </header>
+      {% if  messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        {% endfor %}
+      {% endif %}
     <div class="container mycontent">
       {% block content %}
 
