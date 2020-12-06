@@ -48,7 +48,7 @@ class PostDetail(SelectRelatedMixin, generic.DetailView):
             user__username__iexact=self.kwargs.get("username")
         )
 
-
+# we need to check why form_class make errors
 class CreatePost(LoginRequiredMixin, SelectRelatedMixin, generic.CreateView):
     # form_class = forms.PostForm
     fields = ('message','group')
