@@ -5,6 +5,7 @@ from django.http import Http404
 from django.views import generic
 from django.contrib import messages
 from braces.views import SelectRelatedMixin
+from django import forms
 
 from . import forms
 from . import models
@@ -50,7 +51,7 @@ class PostDetail(SelectRelatedMixin, generic.DetailView):
 
 
 class CreatePost(LoginRequiredMixin, SelectRelatedMixin, generic.CreateView):
-    # form_class = forms.PostForm
+    #form_class = forms.PostForm
     fields = ('message','group')
     model = models.Post
 
