@@ -9,39 +9,18 @@ from .forms import UserRegisterForm,UserUpdateForm,ProfileUpdateForm
 from . import forms
 
 
-
-
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Accout created for {username}.')
+            messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
-        form = UserCreationForm()
-    return render(request,'accounts/login.html', {'form': form})
+        form = UserRegisterForm()
+    return render(request, 'accounts/signup.html', {'form': form})
 
-
-#register for teacher
-# def register_te(request):
-#     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             messages.success(request, f'Accout created for {username}.')
-#             return redirect('login')
-#     else:
-#         form = UserCreationForm()
-#     return render(request,'accounts/login.html', {'form': form})
-
-# Create your views here.
-# class SignUp(CreateView):
-#     form_class = forms.UserCreateForm
-#     success_url = reverse_lazy('login')
-#     template_name = 'accounts/signup.html'
 
 @login_required
 def profile(request):
@@ -62,6 +41,6 @@ def profile(request):
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
         }
     return render(request, 'accounts/profile.html', context)
