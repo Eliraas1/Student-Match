@@ -1,50 +1,34 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm,UserUpdateForm,ProfileUpdateForm
-from . import forms
-
-
-
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .models import Profile
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Accout created for {username}.')
+            messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
-        form = UserCreationForm()
-    return render(request,'accounts/login.html', {'form': form})
+        form = UserRegisterForm()
+    return render(request, 'accounts/signup.html', {'form': form})
 
 
-#register for teacher
-# def register_te(request):
+# @login_required
+# def profile(request):
 #     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             messages.success(request, f'Accout created for {username}.')
-#             return redirect('login')
-#     else:
-#         form = UserCreationForm()
-#     return render(request,'accounts/login.html', {'form': form})
-
-# Create your views here.
-# class SignUp(CreateView):
-#     form_class = forms.UserCreateForm
-#     success_url = reverse_lazy('login')
-#     template_name = 'accounts/signup.html'
-
+#         u_form = UserUpdateForm(request.POST, instance=request.user)
+#         p_form = ProfileUpdateForm(request.POST,
+#                                    request.FILES,
+#                                    instance=request.user.profile)
 @login_required
-def profile(request):
+def edit_profile(request):
+    # Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -54,7 +38,7 @@ def profile(request):
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('profile')
+            return render(request, 'accounts/profile.html')
 
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -63,5 +47,9 @@ def profile(request):
     context = {
         'u_form': u_form,
         'p_form': p_form
-        }
-    return render(request, 'accounts/profile.html', context)
+    }
+
+    return render(request, 'accounts/edit_profile.html', context)
+
+def profile(request):
+    return render(request,'accounts/profile.html')

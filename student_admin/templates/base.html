@@ -3,8 +3,8 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Student Social</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'student_admin/style.css'%}">
+    <title >Student Social</title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
@@ -12,19 +12,17 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
 
 
-
+    <link rel="stylesheet" href="{% static '/student_admin/style.css'%}">
   </head>
   <body>
     <header class = "site-header">
     <nav class='navbar mynav' role= 'navigation' id='navbar'>
       <div class="container">
-        <a class='navbar-brand mynav' href="{% url 'home' %}">Student Social</a>
+        <a class='navbar-brand mynav' style = "color :#979EAA;" href="{% url 'home' %}">Student Social</a>
 
         <ul class='nav navbar-nav navbar-right'>
           {% if  messages %}
@@ -39,18 +37,18 @@
           {% endif %}
 
           {% if user.is_authenticated %}
-            <li><a href="{% url 'posts:create' %}">Post</a> </li>
-            <li><a href="{% url 'groups:all' %}">Group</a> </li>
-            <li><a href="{% url 'groups:create' %}">Create Group</a> </li>
-            <li><a href="{% url 'accounts:logout' %}">Log Out</a> </li>
-            <li><a href="{% url 'accounts:profile' %}">Profile</a> </li>
-            <li><a href="{% url 'admin:index' %}">Admin Page</a> </li>
+            <li><a style = "color :#979EAA;" href="{% url 'posts:create' %}">Post</a> </li>
+            <li><a style = "color :#979EAA;"href="{% url 'groups:all' %}">Group</a> </li>
+            <li><a style = "color :#979EAA;"href="{% url 'groups:create' %}">Create Group</a> </li>
+            <li><a style = "color :#979EAA;"href="{% url 'accounts:logout' %}">Log Out</a> </li>
+            <li><a style = "color :#979EAA;"href="{% url 'accounts:profile' %}">Profile</a> </li>
+            <li><a style = "color :#979EAA;"href="{% url 'admin:index' %}">Admin Page</a> </li>
 
             {% else %}
-              <li><a href="{% url 'groups:all' %}">Groups</a></li>
-              <li><a href="{% url 'accounts:login' %}">Log In</a></li>
-              <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
-              <li><a href="{% url 'admin:index' %}">Admin Page</a> </li>
+              <li><a style = "color :#979EAA;"href="{% url 'groups:all' %}">Groups</a></li>
+              <li><a style = "color :#979EAA;"href="{% url 'accounts:login' %}">Log In</a></li>
+              <li><a style = "color :#979EAA;"href="{% url 'accounts:signup' %}">Sign Up</a></li>
+              <li><a style = "color :#979EAA;"href="{% url 'admin:index' %}">Admin Page</a> </li>
           {% endif %}
 
         </ul>
@@ -67,7 +65,7 @@
     <div class="container mycontent">
       {% block content %}
 
-      {% endblock %}
+      {% endblock content %}
 
     </div>
 

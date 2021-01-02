@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'bootstrap3',
-    'accounts',
+    "bootstrap4",
     'groups',
     'posts',
+    'accounts.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -125,15 +126,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATICFILES_DIR = [os.path.join(BASE_DIR,'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+MEDIA_DIR = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap3', 'bootstrap4', 'semantic-ui')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL= 'test'
 LOGOUT_REDIRECT_URL = 'thanks'
-
-MEDIA_DIR = os.path.join(BASE_DIR,'media')
-MEDIA_ROOT = MEDIA_DIR
-MEDIA_URL = '/media/'

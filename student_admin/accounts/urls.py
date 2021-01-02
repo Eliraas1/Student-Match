@@ -7,6 +7,7 @@ from django.conf import settings
 from django.urls import path, include
 
 
+
 app_name = 'accounts'
 
 urlpatterns = [
@@ -16,7 +17,5 @@ urlpatterns = [
     path('logout/',auth_views.LogoutView.as_view(),name='logout'),
     path('signup/',views.register,name='signup'),
     path('profile/',views.profile, name='profile'),
+    path('edit_profile/',views.edit_profile, name='edit_profile'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

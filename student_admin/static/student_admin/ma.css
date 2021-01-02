@@ -1,0 +1,30 @@
+body{
+
+  font-family: 'Roboto Condensed', sans-serif;
+  /* text-align: center; */
+  background: #21252B;
+  color: #ABB2BF;
+    padding: 30px;
+}
+#headline {
+  padding-top: 57px;
+  color: #E06C75;
+}
+.form-control{
+  border:0px solid #E06C75;
+  width: 20%;
+  height: auto;
+  /* text-align: center; */
+  /* margin: auto; */
+  /* padding: 5px; */
+}
+#submit{
+  text-align: center;
+  color: #E06C75;
+  background-color: #ABB2BF;
+  border:2px solid #E06C75;
+  border-radius: 20px;
+  height: 45px;
+  width: 85px;
+  font-size: 1.2em;
+}
