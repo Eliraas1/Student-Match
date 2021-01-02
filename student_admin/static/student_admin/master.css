@@ -20,13 +20,13 @@ legend{
 
 
 
-body{
+/* body{
   font-family: 'Roboto Condensed', sans-serif;
   /* text-align: center; */
-  background: #21252B;
-  color: #ABB2BF;
-  padding: 20px;
-}
+  /* background: #21252B; */
+  /* color: #ABB2BF; */
+  /* padding: 20px; */
+/* } */
 .form-group-profile{
   width: 40%;
 }
