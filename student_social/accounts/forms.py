@@ -6,8 +6,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile
-
+# from .models import Profile,Student
+from .models import Student, Teacher
 
 
 # class UserCreateForm(UserCreationForm):
@@ -23,12 +23,12 @@ from .models import Profile
 #         self.fields['email'].label = "Email Adress"
 #         self.fields['Profile_Pic'].label = "Profile Picture"
 
-class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()
-    # profile_Pic = forms.ImageField(required = False)
-    class Meta:
-        model = User
-        fields = ['first_name','last_name','username', 'email', 'password1', 'password2']
+# class UserRegisterForm(UserCreationForm):
+#     email = forms.EmailField()
+#     # profile_Pic = forms.ImageField(required = False)
+#     class Meta:
+#         model = User
+#         fields = ['first_name','last_name','username', 'email', 'password1', 'password2']
 
     # def __init__(self,*args,**kwargs):
     #     super().__init__(*args,**kwargs)
@@ -38,12 +38,48 @@ class UserUpdateForm(forms.ModelForm):
     username = forms.CharField(required = False,widget=forms.TextInput(attrs={'size':1}))
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['first_name','last_name','username', 'email']
 
-class ProfileUpdateForm(forms.ModelForm):
+# class ProfileUpdateForm(forms.ModelForm):
+#     cv = forms.FileField(required = False,label = 'CV')
+#     Profile_pic = forms.ImageField(required = False)
+#
+#     class Meta:
+#         model = Profile
+#         fields = ['Gender','Role','years_in_academy','Profile_pic','cv']
+#
+
+# ==============================================Student =================================
+class StudentSignUpForm(UserCreationForm):
+    email = forms.EmailField()
+    # profile_Pic = forms.ImageField(required = False)
+    class Meta:
+        model = User
+        # Student.is_student = True
+        fields = ['first_name','last_name','username', 'email', 'password1', 'password2']
+
+
+
+class StudentUpdateForm(forms.ModelForm):
     cv = forms.FileField(required = False,label = 'CV')
     Profile_pic = forms.ImageField(required = False)
-    years_in_academy = forms.CharField(required = False)
+
     class Meta:
-        model = Profile
-        fields = ['Gender','Role','years_in_academy','Profile_pic','cv']
+        model = Student
+        fields = ['Role','Profile_pic','cv','study_choice','years_in_academy']
+
+# ==============================================Teacher =================================
+
+class TeacherSignUpForm(UserCreationForm):
+    email = forms.EmailField()
+    # profile_Pic = forms.ImageField(required = False)
+    class Meta:
+        model = User
+        fields = ['first_name','last_name','username', 'email', 'password1', 'password2']
+
+class TeacherUpdateForm(forms.ModelForm):
+    cv = forms.FileField(required = False,label = 'CV')
+    Profile_pic = forms.ImageField(required = False)
+    class Meta:
+        model = Teacher
+        fields = ['undergraduate','description','Profile_pic','cv']

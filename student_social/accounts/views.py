@@ -5,42 +5,130 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm,UserUpdateForm,ProfileUpdateForm
+# from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, StudentSignUpForm, StudentUpdateForm
+from .forms import UserUpdateForm,StudentSignUpForm, StudentUpdateForm, TeacherSignUpForm,TeacherUpdateForm
 from . import forms
 
+#
+# def register(request):
+#     if request.method == 'POST':
+#         form = UserRegisterForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             username = form.cleaned_data.get('username')
+#             messages.success(request, f'Your account has been created! You are now able to log in')
+#             return redirect('login')
+#     else:
+#         form = UserRegisterForm()
+#     return render(request, 'accounts/signup.html', {'form': form})
+#
+#
+# @login_required
+# def profile(request):
+#     return render(request, 'accounts/profile.html')
+#
+# @login_required
+# def edit_profile(request):
+#     if request.method == 'POST':
+#         u_form = UserUpdateForm(request.POST, instance=request.user)
+#         p_form = ProfileUpdateForm(request.POST,
+#                                    request.FILES,
+#                                    instance=request.user.profile)
+#         if u_form.is_valid() and p_form.is_valid():
+#             u_form.save()
+#             p_form.save()
+#             messages.success(request, f'Your account has been updated!')
+#             return render(request, 'accounts/profile.html')
+#
+#     else:
+#         u_form = UserUpdateForm(instance=request.user)
+#         p_form = ProfileUpdateForm(instance=request.user.profile)
+#
+#     context = {
+#         'u_form': u_form,
+#         'p_form': p_form,
+#         }
+#     return render(request, 'accounts/edit_profile.html', context)
+#
 
-def register(request):
+# ===============================Student ===========================
+def student_register(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        form = StudentSignUpForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
-        form = UserRegisterForm()
-    return render(request, 'accounts/signup.html', {'form': form})
-
+        form = StudentSignUpForm()
+    return render(request, 'accounts/student_register.html', {'form': form})
 
 @login_required
-def profile(request):
+def student_profile(request):
+    return render(request, 'accounts/student_profile.html')
+
+@login_required
+def edit_student(request):
+
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST,
+        su_form = UserUpdateForm(request.POST, instance=request.user)
+        sp_form = StudentUpdateForm(request.POST,
                                    request.FILES,
-                                   instance=request.user.profile)
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
+                                   instance=request.user.student)
+        if su_form.is_valid() and sp_form.is_valid():
+            su_form.save()
+            sp_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('profile')
+            return render(request, 'accounts/student_profile.html')
 
     else:
-        u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
+        su_form = UserUpdateForm(instance=request.user)
+        sp_form = StudentUpdateForm(instance=request.user.student)
 
     context = {
-        'u_form': u_form,
-        'p_form': p_form,
+        'su_form': su_form,
+        'sp_form': sp_form,
         }
-    return render(request, 'accounts/profile.html', context)
+    return render(request, 'accounts/edit_student.html', context)
+
+# ===============================Teacher ===========================
+def teacher_register(request):
+    if request.method == 'POST':
+        form = TeacherSignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Your account has been created! You are now able to log in')
+            return redirect('login')
+    else:
+        form = TeacherSignUpForm()
+    return render(request, 'accounts/teacher_register.html', {'form': form})
+
+@login_required
+def teacher_profile(request):
+    return render(request, 'accounts/teacher_profile.html')
+
+@login_required
+def edit_teacher(request):
+
+    if request.method == 'POST':
+        tu_form = UserUpdateForm(request.POST, instance=request.user)
+        tp_form = TeacherUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.teacher)
+        if tu_form.is_valid() and tp_form.is_valid():
+            tu_form.save()
+            tp_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return render(request, 'accounts/teacher_profile.html')
+
+    else:
+        tu_form = UserUpdateForm(instance=request.user)
+        tp_form = TeacherUpdateForm(instance=request.user.teacher)
+
+    context = {
+        'tu_form': tu_form,
+        'tp_form': tp_form,
+        }
+    return render(request, 'accounts/edit_teacher.html', context)
