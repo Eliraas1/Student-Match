@@ -42,12 +42,13 @@
 
           {% endif %}
 
+
           {% if user.is_authenticated %}
             <li><a style = "color :#979EAA;" href="{% url 'posts:create' %}">Post</a> </li>
             <li><a style = "color :#979EAA;"href="{% url 'groups:all' %}">Group</a> </li>
             <li><a style = "color :#979EAA;"href="{% url 'groups:create' %}">Create Group</a> </li>
             <li><a style = "color :#979EAA;"href="{% url 'accounts:logout' %}">Log Out</a> </li>
-            {% if user.teacher.Role %}
+            {% if request.user.groups.all.0.name != 'teacher_group' %}
             <li><a style = "color :#979EAA;"href="{% url 'accounts:student_profile' %}">Profile</a> </li>
             {% else %}
             <li><a style = "color :#979EAA;"href="{% url 'accounts:teacher_profile' %}">Profile</a> </li>
@@ -77,6 +78,11 @@
       {% endblock content %}
 
     </div>
+
+    {% if request.user.groups.all.0.name == 'teacher_group' %}
+      <h1>yes!!!!</h1>
+    {% endif %}
+
 
   </body>
 </html>

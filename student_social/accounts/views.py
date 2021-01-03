@@ -5,6 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from .decorators import unauthenticated_user, allowed_users, admin_only
 # from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, StudentSignUpForm, StudentUpdateForm
 from .forms import UserUpdateForm,StudentSignUpForm, StudentUpdateForm, TeacherSignUpForm,TeacherUpdateForm
 from . import forms
@@ -53,11 +55,15 @@ from . import forms
 
 # ===============================Student ===========================
 def student_register(request):
+
     if request.method == 'POST':
         form = StudentSignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             username = form.cleaned_data.get('username')
+            group = Group.objects.get(name='student_group')
+            user.groups.add(group)
+
             messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
@@ -65,10 +71,12 @@ def student_register(request):
     return render(request, 'accounts/student_register.html', {'form': form})
 
 @login_required
+@allowed_users(allowed_roles=['student_group'])
 def student_profile(request):
     return render(request, 'accounts/student_profile.html')
 
 @login_required
+@allowed_users(allowed_roles=['student_group'])
 def edit_student(request):
 
     if request.method == 'POST':
@@ -97,8 +105,11 @@ def teacher_register(request):
     if request.method == 'POST':
         form = TeacherSignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             username = form.cleaned_data.get('username')
+            group = Group.objects.get(name='teacher_group')
+            user.groups.add(group)
+
             messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
@@ -106,10 +117,12 @@ def teacher_register(request):
     return render(request, 'accounts/teacher_register.html', {'form': form})
 
 @login_required
+@allowed_users(allowed_roles=['teacher_group'])
 def teacher_profile(request):
     return render(request, 'accounts/teacher_profile.html')
 
 @login_required
+@allowed_users(allowed_roles=['teacher_group'])
 def edit_teacher(request):
 
     if request.method == 'POST':
