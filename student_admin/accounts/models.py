@@ -19,8 +19,8 @@ class Profile(models.Model):
         ('SR', 'Senior'),
         ('GR', 'Graduate'),
         )
-    years_in_academy = models.CharField(choices = YEAR_IN_SCHOOL_CHOICES, max_length = 300, null=True ,blank = True)
-
+    years_in_academy = models.CharField(choices = YEAR_IN_SCHOOL_CHOICES, max_length = 300, null=True)
+    # is_student = models.BooleanField(blank = False)
     def __str__(self):
         return f'{self.user.username} Profile'
 

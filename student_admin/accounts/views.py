@@ -52,4 +52,12 @@ def edit_profile(request):
     return render(request, 'accounts/edit_profile.html', context)
 
 def profile(request):
-    return render(request,'accounts/profile.html')
+    x = request.user.profile.Role
+    student,teacher = 0,0
+    if(x == 'student'):
+        student = 1
+
+    if(x == 'teacher'):
+        teacher = 1
+    context = {'teacher': teacher , 'student': student}
+    return render(request,'accounts/profile.html',context)
