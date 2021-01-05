@@ -38,3 +38,27 @@ class Message(models.Model):
 				'unread': Message.objects.filter(user=user, recipient__pk=message['recipient'], is_read=False).count()
 				})
 		return users
+
+
+
+class ProfileManager(models.Manager):
+
+    def get_all_profiles_to_invite(self, sender):
+        profiles = Profile.objects.all().exclude(user=sender)
+        profile = Profile.objects.get(user=sender)
+        qs = Relationship.objects.filter(Q(sender=profile) | Q(receiver=profile))
+        print(qs)
+        print("#########")
+
+        accepted = set([])
+        for rel in qs:
+            if rel.status == 'accepted':
+                accepted.add(rel.receiver)
+                accepted.add(rel.sender)
+        print(accepted)
+        print("#########")
+
+        available = [profile for profile in profiles if profile not in accepted]
+        print(available)
+        print("#########")
+        return available

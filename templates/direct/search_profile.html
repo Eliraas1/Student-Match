@@ -41,9 +41,8 @@
     <div class="media-content">
       <div class="content">
         <p>
-        <strong>{{ user.profile.first_name }} {{ user.profile.last_name }}</strong><small>@{{ user.username }}></small>
+      <a href="{% url 'accounts:student_profile' user.username %}">{{ user.username}}</a>
         </p>
-        <a href="{% url 'newconversation' user.username %}" class="button is-info">Send a message!</a>
       </div>
     </div>
   </article>

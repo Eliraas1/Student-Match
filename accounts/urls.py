@@ -16,10 +16,9 @@ urlpatterns = [
     # path('profile/',views.profile, name='profile'),
     # path('edit_profile/',views.edit_profile, name='edit_profile'),
     path('student_register/',views.student_register, name='student_register'),
-    path('student_profile/',views.student_profile, name='student_profile'),
+    path('student_profile/<username>',views.student_profile, name='student_profile'),
     path('edit_student/',views.edit_student, name='edit_student'),
     path('teacher_register/',views.teacher_register, name='teacher_register'),
-    path('teacher_profile/',views.teacher_profile, name='teacher_profile'),
+    path('teacher_profile/<username>',views.teacher_profile, name='teacher_profile'),
     path('edit_teacher/',views.edit_teacher, name='edit_teacher'),
-
     ]

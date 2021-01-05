@@ -52,11 +52,12 @@
           {% if user.is_authenticated %}
             <li><a style = "color :#979EAA;" href="{% url 'posts:create' %}">Post</a> </li>
             <li><a style = "color :#979EAA;"href="{% url 'groups:all' %}">Group</a> </li>
+            <li><a style = "color :#979EAA;"href="{% url 'ProfileSearch' %}">Search Users</a> </li>
             <li><a style = "color :#979EAA;" href="{% url 'inbox' %}">Inbox</a> </li>
             <li><a style = "color :#979EAA;"href="{% url 'groups:create' %}">Create Group</a> </li>
             <li><a style = "color :#979EAA;"href="{% url 'accounts:logout' %}">Log Out</a> </li>
             {% if request.user.groups.all.0.name == 'studentg' %}
-            <li><a style = "color :#979EAA;"href="{% url 'accounts:student_profile' %}">Profile</a> </li>
+            <li><a style = "color :#979EAA;"href="{% url 'accounts:student_profile' user.username %}">Profile</a> </li>
             {% endif %}
             {% if request.user.groups.all.0.name == 'teacherg' %}
             <li><a style = "color :#979EAA;"href="{% url 'accounts:teacher_profile' %}">Profile</a> </li>

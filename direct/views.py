@@ -88,6 +88,41 @@ def NewConversation(request, username):
     return redirect('inbox')
 
 
+def OtherUserProfile(request, username):
+    query = request.GET.get("title")
+    user = request.user
+
+    context = {
+        "user": user
+    }
+    return render(request, 'accounts/student_profile.html', context)
+
+def ProfileSearch(request):
+
+    query = request.GET.get("q")
+    context = {}
+
+    if query:
+        users = User.objects.filter(Q(username__icontains=query))
+
+        # Pagination
+        paginator = Paginator(users, 6)
+        page_number = request.GET.get('page')
+        users_paginator = paginator.get_page(page_number)
+
+        context = {
+            'users': users_paginator,
+        }
+
+    template = loader.get_template('direct/search_profile.html')
+
+    return HttpResponse(template.render(context, request))
+
+
+
+
+
+
 def SendDirect(request):
     from_user = request.user
     to_user_username = request.POST.get('to_user')

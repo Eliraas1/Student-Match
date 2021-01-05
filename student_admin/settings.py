@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'groups',
     'posts',
     'direct'
+
     # 'student_admin',
 ]
 

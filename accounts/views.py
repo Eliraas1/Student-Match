@@ -10,6 +10,7 @@ from .forms import UserUpdateForm,StudentSignUpForm, StudentUpdateForm, TeacherS
 from . import forms
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
 
 #
 # def register(request):
@@ -70,8 +71,12 @@ def student_register(request):
 
 @login_required
 @allowed_users(allowed_roles = ['studentg'])
-def student_profile(request):
-    return render(request, 'accounts/student_profile.html')
+def student_profile(request,username):
+    user1 = User.objects.get(username=username)
+    context = {
+        'user1': user1,
+    }
+    return render(request, 'accounts/student_profile.html', context)
 
 @login_required
 @allowed_users(allowed_roles = ['studentg'])
@@ -116,7 +121,11 @@ def teacher_register(request):
 @login_required
 @allowed_users(allowed_roles = ['teacherg'])
 def teacher_profile(request):
-    return render(request, 'accounts/teacher_profile.html')
+    user1 = User.objects.get(username=username)
+    context = {
+            'user1': user1,
+        }
+    return render(request, 'accounts/teacher_profile.html', context)
 
 @login_required
 @allowed_users(allowed_roles = ['teacherg'])

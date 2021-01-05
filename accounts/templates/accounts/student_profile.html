@@ -12,7 +12,12 @@
   <div class="col-md-8">
     <div class="card" style="max-width: 540px;">
 
-          <div class="card-body">
+
+      <h3>User Name: {{ user1.username }}</h3>
+      <h3>Email Address: {{ user1.email }}</h3>
+      <h3>First Name: {{ user1.first_name }}</h3>
+      <h3>Last Name: {{ user1.last_name }}</h3>
+          {% comment %} <div class="card-body">
             {% if user.first_name %}
             <h1 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
                 {% endif %}
@@ -35,7 +40,10 @@
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
           </div>
         </div>
+        {% endcomment %}
+        {% if user.username %}
           <a href="{% url 'accounts:edit_student' %}">  <button class="btn btn-outline-info" type="submit">Update</button ></a>
+        {% endif %}
       </div>
     </div>
 

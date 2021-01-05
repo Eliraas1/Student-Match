@@ -32,6 +32,7 @@ urlpatterns = [
     path('posts/',include('posts.urls',namespace='posts')),
     path('groups/',include('groups.urls',namespace= 'groups')),
     path('direct/', include('direct.urls')),
+
     ]
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()
