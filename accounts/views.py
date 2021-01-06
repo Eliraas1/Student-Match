@@ -12,47 +12,18 @@ from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from .models import Student,Teacher
-#
-# def register(request):
-#     if request.method == 'POST':
-#         form = UserRegisterForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             messages.success(request, f'Your account has been created! You are now able to log in')
-#             return redirect('login')
-#     else:
-#         form = UserRegisterForm()
-#     return render(request, 'accounts/signup.html', {'form': form})
-#
-#
-# @login_required
-# def profile(request):
-#     return render(request, 'accounts/profile.html')
-#
-# @login_required
-# def edit_profile(request):
-#     if request.method == 'POST':
-#         u_form = UserUpdateForm(request.POST, instance=request.user)
-#         p_form = ProfileUpdateForm(request.POST,
-#                                    request.FILES,
-#                                    instance=request.user.profile)
-#         if u_form.is_valid() and p_form.is_valid():
-#             u_form.save()
-#             p_form.save()
-#             messages.success(request, f'Your account has been updated!')
-#             return render(request, 'accounts/profile.html')
-#
-#     else:
-#         u_form = UserUpdateForm(instance=request.user)
-#         p_form = ProfileUpdateForm(instance=request.user.profile)
-#
-#     context = {
-#         'u_form': u_form,
-#         'p_form': p_form,
-#         }
-#     return render(request, 'accounts/edit_profile.html', context)
-#
+
+from django.shortcuts import render
+from django.http import JsonResponse
+# Create your views here.
+
+def main_view(request):
+    obj = Rating.objects.filter(score=0).order_by("?").first()
+    context ={
+        'object': obj
+    }
+    return render(request, 'templates/main.html', context)
+
 
 # ===============================Student ===========================
 def student_register(request):
