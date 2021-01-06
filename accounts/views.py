@@ -11,7 +11,7 @@ from . import forms
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
-
+from .models import Student,Teacher
 #
 # def register(request):
 #     if request.method == 'POST':
@@ -60,6 +60,7 @@ def student_register(request):
         form = StudentSignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
+            student = Student.objects.create(user= user)
             username = form.cleaned_data.get('username')
             group = Group.objects.get(name='studentg')
             user.groups.add(group)
@@ -70,7 +71,6 @@ def student_register(request):
     return render(request, 'accounts/student_register.html', {'form': form})
 
 @login_required
-@allowed_users(allowed_roles = ['studentg'])
 def student_profile(request,username):
     user1 = User.objects.get(username=username)
     context = {
@@ -91,7 +91,7 @@ def edit_student(request):
             su_form.save()
             sp_form.save()
             messages.success(request, f'Your account has been updated!')
-            return render(request, 'accounts/student_profile.html')
+            return render(request,'accounts/student_profile.html')
 
     else:
         su_form = UserUpdateForm(instance=request.user)
@@ -100,6 +100,7 @@ def edit_student(request):
     context = {
         'su_form': su_form,
         'sp_form': sp_form,
+        'user1': request.user,
         }
     return render(request, 'accounts/edit_student.html', context)
 
@@ -109,6 +110,8 @@ def teacher_register(request):
         form = TeacherSignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
+            teacher = Teacher.objects.create(user = user)
+            # teacher.save()
             username = form.cleaned_data.get('username')
             group = Group.objects.get(name='teacherg')
             user.groups.add(group)
@@ -119,8 +122,7 @@ def teacher_register(request):
     return render(request, 'accounts/teacher_register.html', {'form': form})
 
 @login_required
-@allowed_users(allowed_roles = ['teacherg'])
-def teacher_profile(request):
+def teacher_profile(request,username):
     user1 = User.objects.get(username=username)
     context = {
             'user1': user1,
@@ -141,7 +143,6 @@ def edit_teacher(request):
             tp_form.save()
             messages.success(request, f'Your account has been updated!')
             return render(request, 'accounts/teacher_profile.html')
-
     else:
         tu_form = UserUpdateForm(instance=request.user)
         tp_form = TeacherUpdateForm(instance=request.user.teacher)
@@ -151,3 +152,9 @@ def edit_teacher(request):
         'tp_form': tp_form,
         }
     return render(request, 'accounts/edit_teacher.html', context)
+
+def profile(request,username):
+    if request.user.student:
+        return HttpResponse(student_profile(request, username))
+    else:
+        return HttpResponse(teacher_profile(request, username))

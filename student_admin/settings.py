@@ -43,11 +43,12 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap3',
     'bootstrap4',
-    # 'accounts',
-    'accounts.apps.AccountsConfig',
+    'accounts',
+    # 'accounts.apps.AccountsConfig',
     'groups',
     'posts',
-    'direct'
+    'direct',
+    'news',
 
     # 'student_admin',
 ]

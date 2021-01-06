@@ -21,4 +21,5 @@ urlpatterns = [
     path('teacher_register/',views.teacher_register, name='teacher_register'),
     path('teacher_profile/<username>',views.teacher_profile, name='teacher_profile'),
     path('edit_teacher/',views.edit_teacher, name='edit_teacher'),
+    path('profile/<username>',views.profile, name='profile'),
     ]

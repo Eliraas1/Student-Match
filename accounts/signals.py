@@ -16,31 +16,31 @@ from .models import Student,Teacher
 #     instance.profile.save()
 
 # ========================= student ======================
-@receiver(post_save, sender=User)
-def create_Student(sender, instance, created, **kwargs):
-    print(sender)
-    print(instance)
-    if created:
-        Student.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_Student(sender, instance, **kwargs):
-    instance.student.save()
-
-
-# ========================= teacher ======================
-@receiver(post_save, sender=User)
-def create_teacher(sender, instance, created, **kwargs):
-    print(sender)
-    print(instance)
-    if created:
-        Teacher.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_teacher(sender, instance, **kwargs):
-    instance.teacher.save()
+# @receiver(post_save, sender=User)
+# def create_Student(sender, instance, created, **kwargs):
+#     print(sender)
+#     print(instance)
+#     if created:
+#         Student.objects.create(user=instance)
+#
+#
+# @receiver(post_save, sender=User)
+# def save_Student(sender, instance, **kwargs):
+#     instance.student.save()
+#
+#
+# # ========================= teacher ======================
+# @receiver(post_save, sender=User)
+# def create_teacher(sender, instance, created, **kwargs):
+#     print(sender)
+#     print(instance)
+#     if created:
+#         Teacher.objects.create(user=instance)
+#
+#
+# @receiver(post_save, sender=User)
+# def save_teacher(sender, instance, **kwargs):
+#     instance.teacher.save()
 
 # @receiver(post_save, sender=Student)
 # def create_or_update_user_profile(sender, instance, created, **kwargs):
