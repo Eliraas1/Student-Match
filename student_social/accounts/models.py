@@ -94,7 +94,7 @@ class Student(models.Model):
 # =================================== Teacher =================================
 class Teacher(models.Model):
 
-    user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
+    user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key=True)
     is_student = models.BooleanField(default=False)
     role = (('student', "Student"), ('teacher', 'Teacher'))
     Role = models.CharField(choices=role,default = 0, max_length=300,null=True,blank = False)

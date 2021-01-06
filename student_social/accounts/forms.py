@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 # from .models import Profile,Student
 from .models import Student, Teacher
-
+from django.db import transaction
 
 # class UserCreateForm(UserCreationForm):
 #     email = forms.EmailField()
@@ -59,7 +59,6 @@ class StudentSignUpForm(UserCreationForm):
         fields = ['first_name','last_name','username', 'email', 'password1', 'password2']
 
 
-
 class StudentUpdateForm(forms.ModelForm):
     cv = forms.FileField(required = False,label = 'CV')
     Profile_pic = forms.ImageField(required = False)
@@ -76,6 +75,19 @@ class TeacherSignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name','last_name','username', 'email', 'password1', 'password2']
+
+    # @transaction.atomic
+    # def save(self):
+    #     user = super().save(commit=False)
+    #     user.first_name = self.cleaned_data.get('first_name')
+    #     user.last_name = self.cleaned_data.get('last_name')
+    #     user.username = self.cleaned_data.get('username')
+    #     user.email = self.cleaned_data.get('email')
+    #     user.password1 = self.cleaned_data.get('password1')
+    #     user.password2 = self.cleaned_data.get('password2')
+    #     teacher = Teacher.objects.create(user=user)
+    #     teacher.save()
+    #     return user
 
 class TeacherUpdateForm(forms.ModelForm):
     cv = forms.FileField(required = False,label = 'CV')

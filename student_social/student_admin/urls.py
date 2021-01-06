@@ -22,6 +22,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',views.Welcome_view,name='Welcome_View'),
     path('',views.HomePage.as_view(),name='home'),
     path('account/',include('accounts.urls',namespace='accounts')),
     path('account/',include('django.contrib.auth.urls')),
@@ -30,6 +31,8 @@ urlpatterns = [
     path('thanks/',views.ThankPage.as_view(), name='thanks'),
     path('posts/',include('posts.urls',namespace='posts')),
     path('groups/',include('groups.urls',namespace= 'groups')),
+    path('direct/', include('direct.urls')),
+
     ]
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()

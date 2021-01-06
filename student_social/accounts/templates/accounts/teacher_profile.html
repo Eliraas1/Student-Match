@@ -7,35 +7,43 @@
 
 <div class="row g-0">
   <div class="col-md-4">
-    <img class="img-circle" width="270px" src="{{ user.teacher.Profile_pic.url }}">
+    <img class="img-circle" width="270px" src="{{ user1.teacher.Profile_pic.url }}">
   </div>
   <div class="col-md-8">
     <div class="card" style="max-width: 540px;">
 
+
+            <h3>user Name: {{ user1.username }}</h3>
+            <h3>Email Address: {{ user1.email }}</h3>
+            <h3>First Name: {{ user1.first_name }}</h3>
+            <h3>Last Name: {{ user1.last_name }}</h3>
           <div class="card-body">
-            {% if user.first_name %}
-            <h1 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+            {% if user1.first_name %}
+            <h1 class="card-title">{{ user1.first_name }} {{ user1.last_name }}</h5>
                 {% endif %}
-              {% if user.email %}
-            <p class="card-text">Email : {{ user.email }}</p>
+              {% if user1.email %}
+            <p class="card-text">Email : {{ user1.email }}</p>
               {% endif %}
-            {% if user.teacher.Gender %}
-            <p class="card-text">Gender : {{ user.teacher.Gender }}</p>
+            {% if user1.Gender %}
+            <p class="card-text">Gender : {{ user1.Gender }}</p>
               {% endif %}
-            {% comment %} {% if user.teacher.Role %} {% endcomment %}
+
             <p class="card-text">Role : Teacher</p>
-              {% comment %} {% endif %} {% endcomment %}
-            {% if user.teacher.undergraduate %}
-            <p class="card-text">Undergraduate : {{ user.teacher.undergraduate }}</p>
+
+            {% if user1.undergraduate %}
+            <p class="card-text">Undergraduate : {{ user1.undergraduate }}</p>
               {% endif %}
-            {% if user.teacher.description %}
+            {% if user1.description %}
             <h3 class="card-text">Bio: </h4>
-              <h5>{{ user.teacher.description }}</h5>
+              <h5>{{ user1.description }}</h5>
               {% endif %}
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
           </div>
         </div>
-          <a href="{% url 'accounts:edit_teacher' %}">  <button class="btn btn-outline-info" type="submit">Update</button ></a>
+       {% if user1.username %}
+          <a href="{% url 'accounts:edit_teacher'%}">  <button class="btn btn-outline-info" type="submit">Update</button ></a>
+      {% endif %}
+
       </div>
     </div>
 
