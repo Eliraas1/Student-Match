@@ -1,19 +1,17 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-# from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, StudentSignUpForm, StudentUpdateForm
-from .forms import UserUpdateForm,StudentSignUpForm, StudentUpdateForm, TeacherSignUpForm,TeacherUpdateForm
+from django.db.models import Avg
+from .forms import UserUpdateForm,StudentSignUpForm, StudentUpdateForm, TeacherSignUpForm,TeacherUpdateForm,ReportForm
 from . import forms
 from .decorators import unauthenticated_user, allowed_users, admin_only
-from django.contrib.auth.models import Group
-from django.contrib.auth.models import User
-from .models import Student,Teacher
-#
-
+from django.contrib.auth.models import Group,User
+from .models import Student,Teacher,Rating,Report
+from django.template import loader
 
 # ===============================Student ===========================
 def student_register(request):
@@ -72,7 +70,6 @@ def teacher_register(request):
         if form.is_valid():
             user = form.save()
             teacher = Teacher.objects.create(user = user)
-            # teacher.save()
             username = form.cleaned_data.get('username')
             group = Group.objects.get(name='teacherg')
             user.groups.add(group)
@@ -83,9 +80,9 @@ def teacher_register(request):
     return render(request, 'accounts/teacher_register.html', {'form': form})
 
 @login_required
-
 def teacher_profile(request,username):
     user1 = User.objects.get(username=username)
+    # reviews = Review.objects.filter(teacher=movie_data)
     context = {
             'user1': user1,
         }
@@ -114,3 +111,32 @@ def edit_teacher(request):
         'tp_form': tp_form,
         }
     return render(request, 'accounts/edit_teacher.html', context)
+
+
+@login_required
+def Report(request, username):
+    teacher = User.objects.get(username=username)
+    user = request.user
+
+
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            rate = form.save(commit=False)
+            rate.user = user
+            rate.teacher = teacher.teacher
+            rate.save()
+            # return HttpResponseRedirect(reverse('accounts/teacher_profile/', args=[username]))
+            return redirect('home')
+
+    else:
+    	form = ReportForm()
+
+    template = loader.get_template('accounts/report.html')
+
+    context = {
+    	'form': form,
+    	'teacher': teacher,
+    }
+
+    return HttpResponse(template.render(context, request))

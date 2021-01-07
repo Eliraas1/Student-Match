@@ -34,7 +34,7 @@
           {% if user.student.Profile_pic %}
             <img class="img-circle" src="{{ user.student.Profile_pic.url }}" alt="Placeholder image">
           {% elif user.teacher.Profile_pic %}
-            <img class="img-circle" src="user.teacher.Profile_pic.url" alt="Placeholder image">
+            <img class="img-circle" src="{{user.teacher.Profile_pic.url}}" alt="Placeholder image">
           {% endif %}
       </figure>
     </div>
