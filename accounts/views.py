@@ -17,13 +17,6 @@ from django.shortcuts import render
 from django.http import JsonResponse
 # Create your views here.
 
-def main_view(request):
-    obj = Rating.objects.filter(score=0).order_by("?").first()
-    context ={
-        'object': obj
-    }
-    return render(request, 'templates/main.html', context)
-
 
 # ===============================Student ===========================
 def student_register(request):

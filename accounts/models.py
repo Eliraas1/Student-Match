@@ -18,13 +18,6 @@ class File(models.Model):
 class Student(models.Model):
     Admin_Rate = models.PositiveSmallIntegerField(choices=rate,default=0)
 
-    #
-    #
-    #
-    #
-    # def __str__(self):
-    #     return str(self.pk)
-
     user = models.OneToOneField(User, on_delete = models.CASCADE,primary_key=True)
     role = (('student', "Student"), ('teacher', 'Teacher'))
     Role = models.CharField(choices=role,default=1, max_length=300,null=True)
@@ -61,8 +54,6 @@ class Student(models.Model):
 # =================================== Teacher =================================
 class Teacher(models.Model):
     Admin_Rate =  models.PositiveSmallIntegerField(choices=rate,default=0)
-    # def __str__(self):
-    #     return str(self.pk)
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key=True)
     is_student = models.BooleanField(default=False)
     role = (('student', "Student"), ('teacher', 'Teacher'))
