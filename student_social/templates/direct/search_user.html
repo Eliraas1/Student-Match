@@ -3,8 +3,12 @@
 {%load static%}
 
 
-{% block pag %}
-
+{% block content %}
+<link rel="stylesheet" href="{% static 'static2/css/bulma.min.css' %}">
+<link rel="stylesheet" href="{% static 'static2/css/style.css' %}">
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'static2/js/init.js' %}"></script>
+<script src="{% static 'static2/js/slider.js' %}"></script>
  <div class="columns is-mobile">
   <div class="column is-offset-one-fifth">
 
@@ -30,7 +34,7 @@
 <div class="box">
   <article class="media">
     <div class="media-left">
-      <figure class="image is-64x64">
+      <figure class="image is-16x16">
           {% if user.profile.picture %}
             <img src="{{ user.profile.picture.url }}" alt="Placeholder image">
           {% else %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-<!-- {% load bootstrap3 %} -->
+{% load bootstrap3 %}
 {% load bootstrap4 %}
 {% load crispy_forms_tags %}
 
@@ -7,12 +7,10 @@
 
 <div class="row g-0">
   <div class="col-md-4">
-    <img class="img-circle" width="270px" src="{{ user.student.Profile_pic.url }}">
+    <img class="img-circle" width="270px" src="{{ user1.student.Profile_pic.url }}">
   </div>
   <div class="col-md-8">
     <div class="card" style="max-width: 540px;">
-
-
       <h3>User Name: {{ user1.username }}</h3>
       <h3>Email Address: {{ user1.email }}</h3>
       <h3>First Name: {{ user1.first_name }}</h3>

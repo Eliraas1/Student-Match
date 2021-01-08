@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     # 'accounts.apps.AccountsConfig',
     'groups',
     'posts',
-    'direct'
+    'direct',
+    'news',
 
     # 'student_admin',
 ]

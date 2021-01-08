@@ -18,12 +18,12 @@ from django.urls import path,include
 from . import views, settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
+from news.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.Welcome_view,name='Welcome_View'),
-    path('',views.HomePage.as_view(),name='home'),
+    path('',index,name='home'),
     path('account/',include('accounts.urls',namespace='accounts')),
     path('account/',include('django.contrib.auth.urls')),
     # path('',include('accounts.urls', namespace='accounts')),

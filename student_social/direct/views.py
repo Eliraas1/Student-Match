@@ -78,7 +78,7 @@ def Directs(request, username):
 
 def NewConversation(request, username):
     from_user = request.user
-    body = 'hi'
+    body = ''
     try:
         to_user = User.objects.get(username=username)
     except Exception as e:
@@ -95,7 +95,10 @@ def OtherUserProfile(request, username):
     context = {
         "user": user
     }
-    return render(request, 'accounts/student_profile.html', context)
+    if request.user.groups.filter(name='teacherg').exists():
+        return HttpResponse(teacher_profile(request, username))
+    else:
+        return HttpResponse(student_profile(request, username))
 
 def ProfileSearch(request):
 

@@ -35,7 +35,7 @@ class StudentUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ['Role','Profile_pic','cv','study_choice','years_in_academy']
+        fields = ['Profile_pic','cv','study_choice','years_in_academy','Gender']
 
 # ==============================================Teacher =================================
 
@@ -53,12 +53,13 @@ class TeacherUpdateForm(forms.ModelForm):
     Profile_pic = forms.ImageField(required = False)
     class Meta:
         model = Teacher
-        fields = ['undergraduate','description','Profile_pic','cv']
+        fields = ['undergraduate','description','Profile_pic','cv','Gender']
 
+#=============================================================================
 class ReportForm(forms.ModelForm):
 	text = forms.CharField(widget=forms.Textarea(attrs={'class': 'materialize-textarea'}), required=False)
 	rate = forms.ChoiceField(choices=RATE_CHOICES, widget=forms.Select(), required=False)
 
 	class Meta:
 		model = Report
-		fields = ('text', 'rate')
+		fields = ['text', 'rate']

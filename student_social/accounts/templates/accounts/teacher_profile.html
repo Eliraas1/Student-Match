@@ -2,50 +2,86 @@
 <!-- {% load bootstrap3 %} -->
 {% load bootstrap4 %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 
 <div class="row g-0">
   <div class="col-md-4">
     <img class="img-circle" width="270px" src="{{ user1.teacher.Profile_pic.url }}">
   </div>
+
   <div class="col-md-8">
     <div class="card" style="max-width: 540px;">
 
-
-            <h3>user Name: {{ user1.username }}</h3>
-            <h3>Email Address: {{ user1.email }}</h3>
-            <h3>First Name: {{ user1.first_name }}</h3>
-            <h3>Last Name: {{ user1.last_name }}</h3>
           <div class="card-body">
-            {% if user1.first_name %}
+
             <h1 class="card-title">{{ user1.first_name }} {{ user1.last_name }}</h5>
-                {% endif %}
-              {% if user1.email %}
             <p class="card-text">Email : {{ user1.email }}</p>
-              {% endif %}
-            {% if user1.Gender %}
-            <p class="card-text">Gender : {{ user1.Gender }}</p>
+            {% if user1.teacher.Gender %}
+            <p class="card-text">Gender : {{ user1.teacher.Gender }}</p>
               {% endif %}
 
             <p class="card-text">Role : Teacher</p>
 
-            {% if user1.undergraduate %}
-            <p class="card-text">Undergraduate : {{ user1.undergraduate }}</p>
+            {% if user1.teacher.undergraduate %}
+            <p class="card-text">Undergraduate : {{ user1.teacher.undergraduate }}</p>
               {% endif %}
-            {% if user1.description %}
+            {% if user1.teacher.description %}
             <h3 class="card-text">Bio: </h4>
-              <h5>{{ user1.description }}</h5>
+              <h5>{{ user1.teacher.description }}</h5>
               {% endif %}
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
+
+              {% if request.user in lst_t %}
+              <button type="button" name="button">un assign</button>
+              {% elif user.groups.all.0.name == 'studentg' %}
+              <form action="" method="POST" >
+                {%csrf_token%}
+                <input type="submit" class='btn btn-default' value="Assign As Student" style="background-color: #979EAA;">
+              </form>
+              {% else %}
+                <a href="{% url 'accounts:report' user1.username %}"><button type="button" name="button">report</button></a>
+              {% endif %}
           </div>
         </div>
-       {% if user1.username %}
-          <a href="{% url 'accounts:edit_teacher'%}">  <button class="btn btn-outline-info" type="submit">Update</button ></a>
-      {% endif %}
-
+        <p></p>
+          {% if user1 == request.user %}
+             <a href="{% url 'accounts:edit_teacher' %}">  <button class="btn btn-outline-info" type="submit">Update</button ></a>
+         {% endif %}
+         <p></p>
+      <div class="card" style="max-width: 540px;">
+        <div class="container">
+          <h3>Students Of {{ user1.username }}:</h3>
+          {% for st in lst_t %}
+          <h5>{{forloop.counter }}.{{st}}</h5>
+          {% endfor %}
+        </div>
       </div>
-    </div>
+        {% comment %} ===============================report=========================== {% endcomment %}
+
+        {% for report in report_lst %}
+        {{report.user}} ---- {{report.user.username}}
+          <div class="box">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                      <img src="{{ report.user.Profile_pic.url }}" width="60px" alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                      <a href="{% url 'accounts:student_profile' report.user.username %}"><strong>{{ report.user.first_name }} {{ report.user.last_name }}</strong></a>
+                  </p>
+                  <p>Rating : {{report.rate}}</p>
+                  <p>Text:{{report.text}}</p>
+
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+
+
 
 
 {% endblock %}
