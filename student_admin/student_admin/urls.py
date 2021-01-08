@@ -15,21 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from . import views
-from django.conf.urls.static import static
-from django.conf import settings
-
+from . import views, settings
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from news.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.HomePage.as_view(),name='home'),
+    path('',views.Welcome_view,name='Welcome_View'),
+    path('',index,name='home'),
     path('account/',include('accounts.urls',namespace='accounts')),
     path('account/',include('django.contrib.auth.urls')),
+    # path('',include('accounts.urls', namespace='accounts')),
     path('test/',views.TestPage.as_view(), name='test'),
     path('thanks/',views.ThankPage.as_view(), name='thanks'),
     path('posts/',include('posts.urls',namespace='posts')),
     path('groups/',include('groups.urls',namespace= 'groups')),
+    path('direct/', include('direct.urls')),
+
     ]
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

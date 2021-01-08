@@ -1,15 +1,11 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
-
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"> -->
-
 <div class="content-section">
   <div class="media">
-    <img class="img-circle" width="150px" src="{{ user.profile.image.url }}">
+    <img class="img-circle" width="200" src="{{ user.profile.Profile_pic.url }}">
 
     <div class="media-body">
       <h2 class="account-heading">{{ user.username }}</h2>
@@ -30,4 +26,5 @@
   </form>
 </div>
 
-{% endblock %}
+
+{% endblock content %}
