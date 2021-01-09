@@ -1,21 +1,23 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
 {% load bootstrap4 %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-
+<link rel="stylesheet" href="{% static 'static2/css/bulma.min.css' %}">
+<link rel="stylesheet" href="{% static 'static2/css/style.css' %}">
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'static2/js/init.js' %}"></script>
+<script src="{% static 'static2/js/slider.js' %}"></script>
 <div class="row g-0">
   <div class="col-md-4">
-    <img class="img-circle" width="270px" src="{{ user1.student.Profile_pic.url }}">
+    <img class="rounded-circle" width="270px" src="{{ user1.student.Profile_pic.url }}">
   </div>
   <div class="col-md-8">
-    <div class="card" style="max-width: 540px;">
-      <h3>User Name: {{ user1.username }}</h3>
-      <h3>Email Address: {{ user1.email }}</h3>
-      <h3>First Name: {{ user1.first_name }}</h3>
-      <h3>Last Name: {{ user1.last_name }}</h3>
-        <div class="card-body">
+    <div class="box" style="max-width: 540px;">
+        <div class="media">
+          <div class="media-left">
             {% if user1.first_name %}
             <h1 class="card-title">{{ user1.first_name }} {{ user1.last_name }}</h5>
                 {% endif %}
@@ -34,6 +36,7 @@
               <h5>{{ user1.description }}</h5>
               {% endif %}
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
           </div>
         </div>
         {% if user1.username == user.username %}

@@ -6,12 +6,12 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, StudentSignUpForm, StudentUpdateForm
-from .forms import UserUpdateForm,StudentSignUpForm, StudentUpdateForm, TeacherSignUpForm,TeacherUpdateForm, ReportForm
+from .forms import UserUpdateForm,StudentSignUpForm, StudentUpdateForm, TeacherSignUpForm,TeacherUpdateForm, ReportForm,Users_Report_Form
 from . import forms
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
-from .models import Student,Teacher,Report
+from .models import Student,Teacher,Report,Users_Report
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -116,11 +116,14 @@ def teacher_profile(request,username):
 
     ss = Report.objects.order_by('teacher_id')
     report_lst = []
+    report_st = []
     print(ss)
     for i in ss:
-        print('type = ',type(Student.objects.get(user_id = i.user)))
-        if(str(i.teacher) == user1.username+' Profile'):
+        print('type = ',type(Student.objects.get(user = i.user)))
+        # print((type(i.user)))
+        if(str(i.teacher) == user1.username):
             report_lst.append(i)
+            report_st.append(Student.objects.get(user = i.user))
 
 # =======================================================================
 
@@ -147,6 +150,8 @@ def teacher_profile(request,username):
              }
     if len(report_lst) != 0:
         context['report_lst'] =  report_lst
+    if len(report_st) != 0:
+        context['report_st'] = report_st
     print(context)
     return render(request, 'accounts/teacher_profile.html', context)
 
@@ -195,9 +200,9 @@ def report(request, username):
             rate = form.save(commit=False)
             rate.user = user
 
-            if(rate.user.groups.filter(name='teacherg').exists()):
-                rate.teacher = teacher.teacher
-                rate.save()
+
+            rate.teacher = teacher.teacher
+            rate.save()
             # else:
             #
             #     print("sdsd   ",rate.user.student)
@@ -228,3 +233,19 @@ def student_lst(request):
     students = Student.objects.order_by('user')
     context = { 'students': students }
     return render(request, 'accounts/student_list.html', context)
+
+
+def police(request):
+    if request.method == 'POST':
+        form = Users_Report_Form(request.POST)
+        f_user = request.user
+
+        if form.is_valid():
+            user = form.save()
+            user.from_police = f_user
+            user.save()
+            messages.success(request, f'Your Report Was Sent To The Administrator!')
+            return redirect('home')
+    else:
+        form = Users_Report_Form()
+    return render(request, 'accounts/police.html', {'form': form})

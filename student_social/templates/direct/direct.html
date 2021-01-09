@@ -31,7 +31,9 @@
 
 {% for message in messages %}
 
-<a class="{% if active_direct == message.user.username %}is-active{% endif %}" href="{% url 'accounts:profile' message.user.username %}" style="background-color:white;">
+<a class="{% if active_direct == message.user.username %}is-active{% endif %}"
+ href="{% url 'newconversation' message.user.username %}" style="background-color:white;">
+
  <div class="box">
 <article class="media">
     <div class="media-left">
@@ -47,7 +49,7 @@
 
       <div class="content">
         <p>
-        <strong>{{ message.user.first_name }} {{ message.user.last_name }}</strong> <small>@{{ message.user.username }}</small>
+        <strong>{{ message.user.first_name }} {{ message.user.last_name }}</strong>
         </p>
       </div>
 
@@ -100,11 +102,11 @@
   {% csrf_token %}
 <article class="media">
   <figure class="media-left">
-    <p class="image is-64x64">
+    <p class="">
        {% if user.student.Profile_pic %}
-<img class="image" src="{{ user.student.Profile_pic.url }}" width="96x96">
+<img class="image" src="{{ user.student.Profile_pic.url }}" width="80px">
       {% else %}
-      <img class="image" src="{{ user.teacher.Profile_pic.url }}" width="96x96">
+      <img class="image" src="{{ user.teacher.Profile_pic.url }}" width="80">
       {%endif%}
     </p>
   </figure>
