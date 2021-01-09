@@ -8,12 +8,11 @@
 <script src="{% static 'static2/js/slider.js' %}"></script>
 
 
-<div class="column is-one-quarter">
 
   {% if students %}
     {% for users in students %}
       {% if not users.user.is_superuser %}
-        <div class="box">
+        <div class="box" style="max-width: 540px;">
           <article class="media">
             <div class="media-left">
               <figure class="image is-64x64">
@@ -43,6 +42,5 @@
       {% endif %}
     {% endfor %}
   {% endif %}
-</div>
 
 {% endblock content %}

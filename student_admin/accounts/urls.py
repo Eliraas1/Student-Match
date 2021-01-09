@@ -21,6 +21,7 @@ urlpatterns = [
     path('profile/<username>',views.profile, name='profile'),
     url(r'^password/$', views.change_password, name='change_password'),
     path('report/<username>',views.report, name='report'),
+    path('police/',views.police, name='police'),
     path('teacher_list/',views.teacher_lst, name='teacher_list'),
     path('student_list/',views.student_lst, name='student_list'),
     ]

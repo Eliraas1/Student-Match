@@ -58,7 +58,7 @@ class Rating(models.Model):
 class Teacher(models.Model):
     Admin_Rate =  models.PositiveSmallIntegerField(choices=rate,default=0)
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key=True)
-    is_student = models.BooleanField(default=False)
+    # is_student = models.BooleanField(default=False)
     Role = models.CharField(choices=role,default = 'teacher', max_length=300,null=True,blank = False)
     Profile_pic = models.ImageField(default='default2.jpg',upload_to='profile_pic')
     description = models.TextField(null=True, blank=True)
@@ -129,3 +129,16 @@ class Report(models.Model):
 
     def get_teacher(self):
         return self.rate.all()
+#==================================================================
+
+class Users_Report(models.Model):
+    from_police = models.ForeignKey(User, on_delete=models.CASCADE,related_name='from_police' ,null=True)
+    on_user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='on_user')
+    date = models.DateTimeField(auto_now_add=True)
+    text = models.TextField(max_length=3000, blank=True)
+
+    def __str__(self):
+    	return self.on_user.username
+
+    def save(self, *args, **kwargs):
+        super(Users_Report, self).save(*args, **kwargs)

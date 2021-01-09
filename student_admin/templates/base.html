@@ -110,6 +110,10 @@
                             </a>
                             {% endif %}
                             {% if user.is_authenticated %}
+                            <a class="nav-link" href="{% url 'accounts:police' %}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Report Users
+                            </a>
                             <a class="nav-link" href="{% url 'accounts:logout' %}">Log Out</a>
                             {% endif %}
                         </div>
