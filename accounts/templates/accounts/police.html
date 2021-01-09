@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container">
+  <h1>Report On User</h1>
+  <form method="POST">
+    {%csrf_token%}
+    {% bootstrap_form form %}
+    <input type="submit" class='btn btn-default' value="Report" style="background-color: #979EAA">
+  </form>
+</div>
+{% endblock %}
