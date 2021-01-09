@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap3',
     'accounts',
+    'groups',
+    'posts',
 ]
 
 MIDDLEWARE = [
@@ -101,6 +103,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# AUTH_USER_MODEL = 'index.CustomUser'
 
 
 # Internationalization
